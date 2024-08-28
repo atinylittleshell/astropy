@@ -34,8 +34,8 @@ def test_empty_initialization_invalid():
     ts = TimeSeries()
     with pytest.raises(ValueError) as exc:
         ts['flux'] = [1, 2, 3]
-    assert exc.value.args[0] == ("TimeSeries object is invalid - expected "
-                                 "'time' as the first column but found 'flux'")
+    assert exc.value.args[0] == ("TimeSeries object is invalid - required columns 'time' "
+                                 "are missing from the time series")
 
 
 def test_initialize_only_time():
@@ -382,18 +382,18 @@ def test_required_columns():
 
     with pytest.raises(ValueError) as exc:
         ts.copy().remove_column('time')
-    assert exc.value.args[0] == ("TimeSeries object is invalid - expected "
-                                 "'time' as the first column but found 'a'")
+    assert exc.value.args[0] == ("TimeSeries object is invalid - required columns 'time' "
+                                 "are missing from the time series")
 
     with pytest.raises(ValueError) as exc:
         ts.copy().remove_columns(['time', 'a'])
-    assert exc.value.args[0] == ("TimeSeries object is invalid - expected "
-                                 "'time' as the first column but found 'b'")
+    assert exc.value.args[0] == ("TimeSeries object is invalid - required columns 'time' "
+                                 "are missing from the time series")
 
     with pytest.raises(ValueError) as exc:
         ts.copy().rename_column('time', 'banana')
-    assert exc.value.args[0] == ("TimeSeries object is invalid - expected "
-                                 "'time' as the first column but found 'banana'")
+    assert exc.value.args[0] == ("TimeSeries object is invalid - required columns 'time' "
+                                 "are missing from the time series")
 
 
 @pytest.mark.parametrize('cls', [BoxLeastSquares, LombScargle])
